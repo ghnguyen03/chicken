@@ -277,7 +277,7 @@ def load(file: str, header_name: Optional[str] = 'TileScan 1 Merged',
 
             # del series, header, chosen
 
-    elif file.endswith('.tif') or file.endswith('.png') or file.endswith('.jpg'):  # Load a tif
+    elif file.endswith('.tif') or file.endswith('.png') or file.endswith('.jpg') or file.endswith('.TIF'):  # Load a tif
         image_base = io.imread(file)
 
         if image_base.ndim == 4:
@@ -295,6 +295,12 @@ def load(file: str, header_name: Optional[str] = 'TileScan 1 Merged',
             pass
         elif image_base.ndim == 3 and image_base.shape[0] <= 4:  # Suppose you load a 2D image! with multiple channels
             pass
+
+        elif image_base.ndim == 2:
+            print('2 dimensions')
+            image_base = image_base[np.newaxis, ...]
+            pass
+
         else:
             print(
                 f'\x1b[1;31;40m' + f'Cannot load: \'{file}\'. Unsupported number of dimmensions: {image_base.ndim}' + '\x1b[0m')
