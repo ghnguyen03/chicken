@@ -1,4 +1,4 @@
-# CHICKEN - A stereocilia segmentation gui
+# CHICKEN - A stereocilia segmentation GUI
 Hcat is a suite of machine learning enabled algorithms for performing common image analyses in the hearing field.
 At present, it performs one fully automated analyses: (1) 2D hair cell detection
 
