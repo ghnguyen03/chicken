@@ -62,9 +62,9 @@ class gui:
         self.window = sg.Window('SEM', layout, finalize=True ,return_keyboard_events=True)
 
         self.window['image'].bind('<B1-Motion>', 'pan')
-        #self.window.bind('<Left>', 'previous_image')
+        self.window.bind('<Left>', 'previous_image')
         self.window.bind('<Up>', 'previous_image')
-        #self.window.bind('<Right>', 'next_image')
+        self.window.bind('<Right>', 'next_image')
         self.window.bind('<Down>', 'next_image')
         # self.window['image'].bind('<Button-1>', 'pan')
 
@@ -137,8 +137,12 @@ class gui:
                     if os.path.split(f) == os.path.split(values['Browse']):
                         self.current_image_index = i
                         break
-                
-                self.window['-LISTBOX-'].update(self.valid_image_files)
+
+                for f in self.valid_image_files:
+                    filename = os.path.basename(f)
+                    self.valid_image_file_names.append(filename)
+
+                self.window['-LISTBOX-'].update(self.valid_image_file_names)
 
                 self.load_image(self.valid_image_files[self.current_image_index])
 
@@ -184,10 +188,11 @@ class gui:
             elif event == '-LISTBOX-' and values['Browse'] != '':
 
                     f = values['-LISTBOX-'][0]
-                    self.current_image_index = self.valid_image_files.index(f)
+                    self.current_image_index = self.valid_image_file_names.index(f)
                     
                     try:
                         self.load_image(self.valid_image_files[self.current_image_index])
+
                     except Exception as e:
                         print(f'An error has occurred: {e}')
 
